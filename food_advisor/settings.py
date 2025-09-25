@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', default='(qr(%+r5@n+^e$oxfpgx+a1zp#$k75od%b87ef(-^_q^^#b*l2')
-PORT = os.environ.get('PORT', 8000)
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Handle ALLOWED_HOSTS from environment variable or use wildcard for development
 allowed_hosts_env = config('ALLOWED_HOSTS', default='*')
@@ -132,7 +132,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'dist'),  # React build directory
 ]
 
 MEDIA_URL = '/media/'

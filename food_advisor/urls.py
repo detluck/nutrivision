@@ -24,15 +24,7 @@ urlpatterns = [
     path('', include("backend.urls", namespace="backend"))
 ]
 
-# Serve static files in development
+# Serve static and media files in development
 if settings.DEBUG:
-    from django.contrib.staticfiles.views import serve
-    from django.views.static import serve as static_serve
-    import os
-    
-    # Serve regular static files
-    urlpatterns += static(settings.STATIC_URL, document_root=os.path.join(settings.BASE_DIR, 'static'))
-    # Serve React build assets
-    urlpatterns += static('/assets/', document_root=os.path.join(settings.BASE_DIR, 'dist', 'assets'))
-    # Serve media files
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
