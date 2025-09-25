@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    max-width: 900px;
+    padding: 2rem;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 4rem;
+}
+
+.main-title {
+    font-size: 4.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00ffcc 0%, #00ccff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #a0a0a0;
+    font-weight: 400;
+    margin-bottom: 2rem;
+}
+
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.feature-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 255, 204, 0.1);
+}
+
+.feature-number {
+    background: linear-gradient(135deg, #00ffcc 0%, #00ccff 100%);
+    color: #000;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.feature-text {
+    font-size: 1.2rem;
+    color: #e0e0e0;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.cta-section {
+    text-align: center;
+}
+
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #00ffcc 0%, #00ccff 100%);
+    color: #000;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 255, 204, 0.3);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 255, 204, 0.4);
+    filter: brightness(1.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 3rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .feature-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .feature-text {
+        text-align: center;
+        font-size: 1.1rem;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+}

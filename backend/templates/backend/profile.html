@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
+        rel="stylesheet">
+</head>
+<body>
+    <nav>
+            {% if request.user.is_authenticated %}
+                <div class="login" class="nav-link"><a href="{% url 'backend:login' %}" class="nav-link">Login</a></div>
+            {% else %}
+                <div class="login" class="nav-link"><a href="{% url 'backend:logout' %}" class="nav-link">Logout</a></div>
+            {% endif %}
+            <div class="profile"><a href="{% url 'backend:start_page' %}" class="nav-link">Home</a></div>
+            <div class="advisor"><a href="{% url 'backend:advisor' %}" class="nav-link">Advisor</a></div>
+    </nav>
+    <main>
+        <div class="stats">
+            <div>  
+                <h1>{{ profile.user.username|title }}</h1>
+                <div class="calories val">Calories: {{ request.user.profile.calories}}</div>
+                <div class="age val">Age: {{ request.user.profile.age }}</div>
+                <div class="weight val">Weight: {{ request.user.profile.weight}} kg</div>
+                <div class="height val">Height: {{ request.profile.height }} cm</div>
+                <div class=""></div>
+            </div>
+
+            <section class="weight-graph">
+                <img src="static/images/weight_graph.jpg" alt="Your weight graph">
+            </section>
+        </div>
+    </main>
+</body>

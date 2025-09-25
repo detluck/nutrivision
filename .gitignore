@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.pyo
+
+# Django
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+media/
+staticfiles/
+local_settings.py
+
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+ml_utils/data/
+ml_utils/new_data/
+ml_utils/state_of_the_art_models/
+ml_utils/model_performance/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Model files
+*.keras
+*.h5
+
+# Other
+*.bak

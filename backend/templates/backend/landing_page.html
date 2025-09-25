@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleverTracker - AI Powered Diet Assistant</title>
+    <meta name="description" content="Count calories and nutrients by simply uploading photos of your meals with AI-powered analysis">
+    <link rel="stylesheet" href="{% static 'landing_page.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="main-title">CleverTrack</h1>
+            <p class="subtitle">Your AI powered diet assistant.</p>
+        </header>
+        
+        <main class="features">
+            <div class="feature-card">
+                <div class="feature-number">1</div>
+                <p class="feature-text">Count calories and nutrients by simply uploading photos of your meals</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-number">2</div>
+                <p class="feature-text">Get personal tips and suggestions based on your eating habits</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-number">3</div>
+                <p class="feature-text">Progress faster towards your goals by playing a game</p>
+            </div>
+        </main>
+        
+        <div class="cta-section">
+            <a href="{% url 'backend:register' %}" class="cta-button">Let's go</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,269 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #b3e0ff 0%, #b3ffd9 100%);
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.1rem;
+    padding: 1.5rem 2rem;
+    background: rgba(25a5,255,255,0.7);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.nav-link {
+    color: black;
+    outline: none;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+}
+
+main > div {
+    background: rgba(255,255,255,0.95);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 2.5rem 3rem;
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #3a3a3a;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+form.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.8rem;
+}
+
+.logout {
+    font-size: 1.2rem;
+    background: none; 
+    border: none; 
+    cursor: pointer
+}
+
+.upload-area {
+    background: #2196f3;
+    margin-left: 2.1rem;
+    width: 80%;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(33,150,243,0.12);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    position: relative;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+.summary {
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: baseline;
+    margin-bottom: 2.5rem;
+    margin-top: 1.5rem;
+    /* Remove height and background so circles are above buttons */
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.meal-photo-btn, .choose-meal-btn {
+    color: white;
+    font-size: 1.4rem;
+    width: 12rem;
+    padding: 1.2rem 0;
+    border-radius: 12px;
+    background-color: #080ba8;
+    border: none;
+    margin: 0.4rem;
+    cursor: pointer;
+}
+.meal-photo-btn {
+    background-color: #0099cc !important;
+}
+/*.upload-link {
+    color: white;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    text-decoration: none;
+}
+.meal-photo-btn {
+    background-color: rgb(240, 105, 0);
+}*/
+
+input[type="submit"] {
+    background: #2196f3;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(108,99,255,0.12);
+    transition: background 0.3s, transform 0.2s;
+}
+
+input[type="submit"]:hover {
+    background: linear-gradient(90deg, #b3ffd9 0%, #b3e0ff 100%);
+    transform: translateY(-2px) scale(1.03);
+}
+
+.meal-options {
+    display: flex;
+    width: 100%;
+    font-size: 24px;
+}
+.option {
+    color: white;
+    font-size: 24px;
+    padding: 1rem;
+    margin: 0.8rem;
+    background-color: #080ba8;
+    border-radius: 10px;
+    border: none;
+    width: 12rem;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+/*.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background: rgba(0,0,0,0.4);
+}*/
+.modal-content {
+  background: #fff;
+  margin: 10% auto;
+  padding: 1rem;
+  margin: 0;
+  border-radius: 16px;
+  width: 350px;
+  text-align: center;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover { color: #333; }
+
+
+/* Remove duplicate/conflicting blocks above */
+.summary {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 3.5rem;
+    margin-top: 2.5rem;
+}
+.metric {
+    height: 12rem;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 0;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+h2 {
+    font-size: 1.6rem;
+}
+.outer {
+    width: 8rem;
+    height: 8rem;
+    box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15), 
+    -6px -6px 10px -1px rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    padding: 0.5rem;
+    margin-top: -9.6rem;
+}
+.inner {
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.15), 
+    inset -4px -4px 6px -1px rgba(0, 0, 0, 0.15);
+    margin-top: -0.5rem;
+    margin-left: 0.9rem;
+}
+#number {
+    font-weight: 600;
+    color: whitesmoke;
+}
+circle {
+    fill: none;
+    stroke: url(#GradientColor);
+    stroke-width: 20px;
+    /*stroke-dasharray: 472;
+    stroke-dashoffset: 472;*/
+    animation: anim 2s linear forwards;
+}
+svg {
+    position: relative;
+    left: 0.7rem;
+    top: 0;
+    margin-bottom: 0.5rem;
+}

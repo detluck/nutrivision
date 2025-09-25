@@ -1,0 +1,216 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #b3e0ff 0%, #b3ffd9 100%);
+    color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.1rem;
+    padding: 1.5rem 2rem;
+    background: rgba(25a5,255,255,0.7);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.meal-container {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.nav-link {
+    color: black;
+    outline: none;
+}
+main {
+    margin: 0;
+    padding: 0;
+    margin-left: 22%;
+    margin-right: 22%;
+    min-height: 80vh;
+}
+
+main > div {
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 2.5rem 3rem;
+    width: 80%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #3a3a3a;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+h3 {
+    text-align:end;
+    margin-right: 0.5rem;
+    width: 50%;
+}
+#changeMealBtn {
+    height: 2rem;
+    width: 8.5rem;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    background-color: #0099cc ;
+}
+form.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.upload-area {
+    background: #2196f3;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(33,150,243,0.12);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    position: relative;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+.upload-area:hover {
+    box-shadow: 0 8px 32px rgba(33,150,243,0.18);
+}
+.upload-icon {
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(33,150,243,0.12);
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -36px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.upload-text {
+    margin-top: 48px;
+    text-align: center;
+}
+.upload-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+}
+.upload-desc {
+    font-size: 1rem;
+    color: #e3f2fd;
+}
+.upload-area input[type="file"] {
+    margin-top: 1.2rem;
+    background: none;
+    color: #333;
+    border: none;
+    font-size: 1rem;
+    width: 100%;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    background: #b3e0ff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(108,99,255,0.12);
+    transition: background 0.3s, transform 0.2s;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px) scale(1.03);
+}
+.summary {
+    height: 45%;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;;
+}
+.metric {
+    height: 12rem;
+    font-size: 20px;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+h2 {
+    font-size: 1.6rem;
+}
+.outer {
+    width: 8rem;
+    height: 8rem;
+    box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15), 
+    -6px -6px 10px -1px rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    padding: 2rem;
+}
+.inner {
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.15), 
+    inset -4px -4px 6px -1px rgba(0, 0, 0, 0.15);
+}
+#number {
+    font-weight: 600;
+    color: whitesmoke;
+}
+circle {
+    fill: none;
+    stroke: url(#GradientColor);
+    stroke-width: 20px;
+    /*stroke-dasharray: 472;
+    stroke-dashoffset: 472;*/
+    animation: anim 2s linear forwards;
+}
+svg {
+    position: relative;
+    left: 0.7rem;
+    top: 11rem;
+}
+.save-meal-container {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+}
+.save-meal-btn {
+    background-color: rgba(36, 36, 36, 0.8);
+    color: rgb(225, 225, 225);
+    font-size: 1.2rem;
+    border: 2px solid rgb(225, 225, 225);
+    border-radius: 8px;
+    padding: 1rem 0.6rem;
+}
+

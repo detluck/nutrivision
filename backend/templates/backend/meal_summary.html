@@ -1,0 +1,164 @@
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{% static 'meal_summary.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
+        rel="stylesheet">
+    </head>
+    <body>
+        <nav>
+            {% if user.is_authenticated %}
+                <div class="login"><a class="nav-link" href="{% url 'backend:logout' %}">Logout</a></div>
+            {% else  %}
+                <div class="login"><a class="nav-link" href="{% url 'backend:login' %}">Login</a></div>
+            {% endif %}
+            <div class="profile"><a class="nav-link" href="{% url 'backend:profile' %}">My profile</a></div>
+            <div class="advisor"><a class="nav-link" href="{% url 'backend:start_page' %}">Home</a></div>
+        </nav>
+        <main>
+            <h2>Your nutrition summary</h2>
+            {% for message in messages %}
+                    {{message}}
+            {% endfor %}
+            <div class="meal-container">
+                <h3>{{prediction}}</h3>
+                <button id="changeMealBtn" onclick="toggleCorrectMealForm()">Change meal</button>
+                <form id="correctMealForm" method="post" action="{% url 'backend:correct_prediction' prediction %}" style="display: none;">
+                    {% csrf_token %}
+                    {{form.correct_prediction}}
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div class="summary">
+                <!--
+                <div class="metric calories">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                        <defs>
+                            <linearGradient id="GradientColor">
+                            <stop offset="0%" stop-color="#e91e63" />
+                            <stop offset="100%" stop-color="#673ab7" />
+                            </linearGradient>
+                        </defs>
+                        <circle id="1" data-value="{{calories}}" cx="80" cy="80" r="70" stroke-linecap="round" />
+                    </svg>
+                    <div class="progress-bar">
+                        <div class="outer">
+                            <div class="inner">
+                                <div id="calorie-amount" data-value="{{calories}}">{{calories}} calories</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="metric proteins">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                        <defs>
+                            <linearGradient id="GradientColor">
+                            <stop offset="0%" stop-color="#e91e63" />
+                            <stop offset="100%" stop-color="#673ab7" />
+                            </linearGradient>
+                        </defs>
+                        <circle id="2" cx="80" cy="80" r="70" stroke-linecap="round" />
+                    </svg>
+                    <div class="progress-bar">
+                        <div class="outer">
+                            <div class="inner">
+                                <div id="protein-amount" data-value="{{proteins}}">{{proteins}}g proteins</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric carbs">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                        <defs>
+                            <linearGradient id="GradientColor">
+                            <stop offset="0%" stop-color="#e91e63" />
+                            <stop offset="100%" stop-color="#673ab7" />
+                            </linearGradient>
+                        </defs>
+                        <circle id="3" data-value="{{carbs}}" cx="80" cy="80" r="70" stroke-linecap="round" />
+                    </svg>
+                    <div></div>
+                    <div class="progress-bar">
+                        <div class="outer">
+                            <div class="inner">
+                                <div id="carb-amount" data-value="{{carbs}}">{{carbs}}g carbs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric fats">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                        <defs>
+                            <linearGradient id="GradientColor">
+                            <stop offset="0%" stop-color="#e91e63" />
+                            <stop offset="100%" stop-color="#673ab7" />
+                            </linearGradient>
+                        </defs>
+                        <circle id="4" data-value="{{fats}}" cx="80" cy="80" r="70" stroke-linecap="round" />
+                    </svg>
+                    <div></div>
+                    <div class="progress-bar">
+                        <div class="outer">
+                            <div class="inner">
+                                <div id="fat-amount" data-value="{{fats}}">{{fats}}g fats</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>      
+            <div class="save-meal-container">
+                <form method="post" action="{% url 'backend:save_meal' meal.id %}">
+                    {% csrf_token %}
+                    <button class="save-meal-btn">Save meal</button>
+                </form>
+            </div>
+        </main>
+
+        <script>
+
+            function animateBar(id, circle_id, maxValue) {
+                const number = document.getElementById(id);
+                const circle = document.getElementById(circle_id);
+                const target = parseInt(number.getAttribute("data-value"), 10);
+                const circumference = 472;
+                circle.style.strokeDasharray = circumference;
+                let counter = 0;
+                let interval = setInterval(() => {
+                    if (counter >= target) {
+                        clearInterval(interval);
+                    } else {
+                        counter += 1;
+                        number.innerHTML = counter + " " + id.replace("-amount", "s");
+                        let percent = Math.min(counter / maxValue, 1);
+                        circle.style.strokeDashoffset = circumference * (1 - percent);
+                    }
+                }, 40);
+            }
+
+            const ids = [ "protein-amount", "carb-amount", "fat-amount"];
+            const circle_ids = [ "2", "3", "4"];
+            const maxValues =  [35, 75, 40]; 
+
+            for (let i = 0; i < ids.length; i++) {
+                animateBar(ids[i], circle_ids[i], maxValues[i]);
+            }
+
+            function toggleCorrectMealForm() {
+                const form = document.getElementById('correctMealForm');
+                const button = document.getElementById('changeMealBtn');
+                
+                if (form.style.display === 'none' || form.style.display === '') {
+                    form.style.display = 'block';
+                    button.textContent = 'Hide form';
+                } else {
+                    form.style.display = 'none';
+                    button.textContent = 'Change meal';
+                }
+            }
+    
+        </script>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
+        rel="stylesheet">
+</head>
+<body>
+  <main>
+    <h2>Register</h2>
+    {% if form.errors %}
+      <p style="color: red;">Invalid username or password</p>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Create an account</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'backend:login' %}">Login here</a></p>
+  </main>
+</body>
+</html>
