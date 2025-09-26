@@ -145,6 +145,8 @@ input[type="submit"]:hover {
     font-size: 24px;
     padding: 1rem;
     margin: 0.8rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
     margin-bottom: 0;
     background-color: #080ba8;
     border-radius: 10px;
