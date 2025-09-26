@@ -29,12 +29,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG") == "true"
 
 # Handle ALLOWED_HOSTS from environment variable or use wildcard for development
-allowed_hosts_env = config('ALLOWED_HOSTS', default='*')
-if allowed_hosts_env == '*':
-    ALLOWED_HOSTS = ['*']
-else:
-    ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_env.split(',')]
+ALLOWED_HOSTS = ["food-advisor-production-3924.up.railway.app", "localhost"]
 
+CSRF_TRUSTED_ORIGINS = ["https://food-advisor-production-3924.up.railway.app"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -145,3 +142,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
