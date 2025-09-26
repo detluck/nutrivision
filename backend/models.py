@@ -48,10 +48,20 @@ class Profile(models.Model):
         MAN = "male", "male"
         WOMEN = "female", "female"
         DIVERSE = "diverse", "diverse"
+
     class Goal(models.TextChoices):
         LOOSE_WEIGHT = "lose_weight", "Lose weight"
         MAINTAIN_WEIGHT = "maintain_weight", "Maintain weight"
         GAIN_WEIGHT = "gain_weight", "Gain weight"
+
+    class Activity(models.TextChoices):
+        LOW = "low", "Low"
+        MODERATE = "moderate", "Moderate"
+        HIGH = "high", "High"
+    class NumWorkouts(models.TextChoices):
+        ZERO_ONE = "0-1", "0-1 workouts per week"
+        TWO_THREE = "2-3", "2-3 workouts per week"
+        FOUR_OR_MORE = "4+", "4+ workouts per week"
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     age = models.IntegerField(default=20)
@@ -59,7 +69,12 @@ class Profile(models.Model):
     height = models.IntegerField(default=180, validators=[MinValueValidator(60), MaxValueValidator(240)])
     weight = models.FloatField(default=75, validators=[MinValueValidator(30), MaxValueValidator(200)])
     goal = models.CharField(choices=Goal.choices, default=Goal.MAINTAIN_WEIGHT)
+    activity = models.CharField(choices=Activity.choices, default=Activity.MODERATE)
+    num_workouts = models.CharField(choices=NumWorkouts.choices, default=NumWorkouts.ZERO_ONE)
     calories = models.IntegerField(default=2000, validators=[MinValueValidator(600)])
+    proteins = models.IntegerField(default=95, validators=[MinValueValidator(30)])
+    carbs = models.IntegerField(default=150, validators=[MinValueValidator(40)])
+    fats = models.IntegerField(default=150, validators=[MinValueValidator(20)])
 
     def __str__(self):
         return f"{self.user.username}"

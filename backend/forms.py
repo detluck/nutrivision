@@ -28,7 +28,8 @@ class ProfileCreationForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ["age", "sex", "weight", "height", "goal"]
+        fields = ["age", "sex", "weight", "height", 
+                  "activity", "num_workouts", "goal"]
 
 class CorrectPredictionForm(forms.ModelForm):
     correct_prediction = forms.CharField(

@@ -22,7 +22,7 @@ def check_is_food(prediction_info):
         return False
     return True
 
-def calculate_daily_calories(height, weight, sex, age, goal):
+def calculate_daily_calories(height, weight, sex, age, goal, num_workouts):
     """Calculate the amount of calories needed per day based on the users height(cm), "
     weight(kg), sport activity"""
     bias = 5
@@ -30,12 +30,42 @@ def calculate_daily_calories(height, weight, sex, age, goal):
         bias = -161
         
     calorie_intake = 10*weight + 6.25*height - 5*age + bias
+
+    if num_workouts == "2-3":
+        calorie_intake *= 1.4
+    elif num_workouts == "4+": 
+        calorie_intake *= 1.6
+    else:
+        calorie_intake *= 1.2
+
     if goal == "lose_weight":
         calorie_intake *= 0.9
+
     elif goal == "gain_weight":
         calorie_intake *= 1.1
 
     return calorie_intake
+
+def calculate_daily_proteins(height, weight, sex, age, goal, num_workouts):
+    calorie_intake = calculate_daily_calories(height, weight, sex, age, goal, num_workouts)
+    protein_calories = calorie_intake * 0.27
+
+    if num_workouts == "2-3":
+        protein_calories *= 1.1
+    elif num_workouts == "4+": 
+        value *= 1.2
+
+    return protein_calories / 4
+
+def calculate_daily_carbs(height, weight, sex, age, goal, num_workouts):
+    calorie_intake = calculate_daily_calories(height, weight, sex, age, goal, num_workouts)
+    carbs_calories = calorie_intake * 0.5
+    return carbs_calories / 4
+
+def calculate_daily_fats(height, weight, sex, age,  goal, num_workouts):
+    calorie_intake = calculate_daily_calories(height, weight, sex, age, goal, num_workouts)
+    fats_intake = calorie_intake * 0.23
+    return fats_intake / 9
 
 def generate_weight_graph(weight_history, weight_dates, profile):
     if len(weight_history) != 0:
@@ -173,13 +203,34 @@ def create_profile(request):
             profile.weight = form.cleaned_data["weight"]
             profile.age = form.cleaned_data["age"]
             profile.sex = form.cleaned_data["sex"]
+            profile.activity = form.cleaned_data["activity"]
+            profile.num_workouts = form.cleaned_data["num_workouts"]
             profile.goal = form.cleaned_data["goal"]
+
             profile.calories = calculate_daily_calories(
                 form.cleaned_data["height"],
                 form.cleaned_data["weight"],
                 form.cleaned_data["sex"],
                 form.cleaned_data["age"],
-                form.cleaned_data["goal"])
+                form.cleaned_data["goal"],
+                form.cleaned_data["num_workouts"])
+            
+            profile.proteins = calculate_daily_proteins(
+                form.cleaned_data["height"],
+                form.cleaned_data["weight"],
+                form.cleaned_data["sex"],
+                form.cleaned_data["age"],
+                form.cleaned_data["goal"],
+                form.cleaned_data["num_workouts"])
+            
+            profile.fats = calculate_daily_fats(
+                form.cleaned_data["height"],
+                form.cleaned_data["weight"],
+                form.cleaned_data["sex"],
+                form.cleaned_data["age"],
+                form.cleaned_data["goal"],
+                form.cleaned_data["num_workouts"])
+            
             profile.save()
             return redirect("backend:start_page")
         else:
