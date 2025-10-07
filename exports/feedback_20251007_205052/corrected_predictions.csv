@@ -1,0 +1,15 @@
+correct_label,predicted_label,image_path,date
+Chocolate mousse,Chocolate mousse,no_image,2025-09-26 18:33:47
+chocolate mousee,Escargots,no_image,2025-09-26 19:00:16
+joughurt,Chocolate mousse,no_image,2025-09-26 19:04:13
+yogurt,Panna cotta,no_image,2025-09-26 19:09:18
+yogurt,Panna cotta,no_image,2025-09-26 19:14:09
+youghurt,Panna cotta,no_image,2025-09-26 19:24:00
+yogurt,Panna cotta,no_image,2025-09-26 19:28:42
+yougurt,Panna cotta,no_image,2025-09-26 19:30:08
+yogurt,Panna cotta,no_image,2025-09-26 19:34:37
+yogurt,Panna cotta,no_image,2025-09-26 19:40:10
+yogurt,Panna cotta,no_image,2025-09-26 19:50:46
+baklava,Baklava,C:\Users\hp\OneDrive\Desktop\FoodAdvisor - Copy\media\images\baklava_image_gdP1x0K.jpg,2025-10-05 12:16:40
+baklava,Baklava,C:\Users\hp\OneDrive\Desktop\FoodAdvisor - Copy\media\images\baklava_image_gdP1x0K.jpg,2025-10-05 12:16:48
+ravioli,Hummus,C:\Users\hp\OneDrive\Desktop\FoodAdvisor - Copy\media\images\OIP_2_Y7D1DVe.jpg,2025-10-05 12:18:23

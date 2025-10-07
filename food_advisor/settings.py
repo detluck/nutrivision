@@ -23,15 +23,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", default="(qr(%+r5@n+^e$oxfpgx+a1zp#$k75od%b87ef(-^_q^^#b*l2")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG") == "true"
+
+# Uncomment for production
+#DEBUG = os.environ.get("DEBUG") == "true"
+DEBUG = True
 
 # Handle ALLOWED_HOSTS from environment variable or use wildcard for development
-ALLOWED_HOSTS = ["food-advisor-production-3924.up.railway.app", "localhost"]
+ALLOWED_HOSTS = ["food-advisor-production-3924.up.railway.app", "localhost", "127.0.0.1"]
 
-CSRF_TRUSTED_ORIGINS = ["https://food-advisor-production-3924.up.railway.app"]
+# Uncomment for production
+#CSRF_TRUSTED_ORIGINS = ["https://food-advisor-production-3924.up.railway.app"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,7 +51,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # Uncomment for production
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -139,8 +144,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# Security settings - only enable in production
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+else:
+    # Development settings
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
 

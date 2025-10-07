@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from django.shortcuts import render, redirect
 from .forms import ImageForm, UserCreationForm, FoodOptionsForm, ProfileCreationForm
 from .forms import CorrectPredictionForm
@@ -48,12 +49,7 @@ def calculate_daily_calories(height, weight, sex, age, goal, num_workouts):
 
 def calculate_daily_proteins(height, weight, sex, age, goal, num_workouts):
     calorie_intake = calculate_daily_calories(height, weight, sex, age, goal, num_workouts)
-    protein_calories = calorie_intake * 0.27
-
-    if num_workouts == "2-3":
-        protein_calories *= 1.1
-    elif num_workouts == "4+": 
-        value *= 1.2
+    protein_calories = calorie_intake * 0.24
 
     return protein_calories / 4
 
@@ -64,7 +60,7 @@ def calculate_daily_carbs(height, weight, sex, age, goal, num_workouts):
 
 def calculate_daily_fats(height, weight, sex, age,  goal, num_workouts):
     calorie_intake = calculate_daily_calories(height, weight, sex, age, goal, num_workouts)
-    fats_intake = calorie_intake * 0.23
+    fats_intake = calorie_intake * 0.26
     return fats_intake / 9
 
 def generate_weight_graph(weight_history, weight_dates, profile):
@@ -151,6 +147,8 @@ def upload_photo(request, option=None):
             else:
                 context = prediction_info
                 context["form"] = form
+                # Store the image ID in session for later use when user selects from suggestions
+                request.session['pending_image_id'] = instance.id
                 return render(request, "backend/home_page.html", context)
 
             
@@ -232,6 +230,14 @@ def create_profile(request):
                 form.cleaned_data["goal"],
                 form.cleaned_data["num_workouts"])
             
+            profile.carbs = calculate_daily_carbs(
+                form.cleaned_data["height"],
+                form.cleaned_data["weight"],
+                form.cleaned_data["sex"],
+                form.cleaned_data["age"],
+                form.cleaned_data["goal"],
+                form.cleaned_data["num_workouts"])
+            
             profile.fats = calculate_daily_fats(
                 form.cleaned_data["height"],
                 form.cleaned_data["weight"],
@@ -281,10 +287,22 @@ def meal_summary(request, option):
     else:
         # Get nutrition info from API
         add_nutrition_info_api(context, option)
-        # Create new meal without image (since no image was uploaded directly here)
+        
+        # Check if there's a pending image from recent upload (when model wasn't confident)
+        pending_image_id = request.session.get('pending_image_id')
+        image_to_use = None
+        
+        if pending_image_id:
+            try:
+                image_to_use = Image.objects.get(id=pending_image_id, user=request.user)
+                # Clear the session after using
+                del request.session['pending_image_id']
+            except Image.DoesNotExist:
+                image_to_use = None
+        
         meal = Meal.objects.create(
             user=request.user,
-            image=None,  # No image available when called directly
+            image=image_to_use,  # Use the pending image if available
             name=option, 
             total_calories=context["calories"],
             total_proteins=context["proteins"],
@@ -308,17 +326,91 @@ def meal_summary(request, option):
 @require_POST
 @login_required
 def correct_prediction(request, meal_name):
-    meal = Meal.objects.filter(name=meal_name, user=request.user).last()
+    from urllib.parse import unquote
+    # Decode URL encoding (e.g., "Panna%20cotta" -> "Panna cotta")
+    decoded_meal_name = unquote(meal_name)
+    meal = Meal.objects.filter(name=decoded_meal_name, user=request.user).last()
+    
+    if not meal:
+        messages.error(request, "Meal not found.")
+        return redirect("backend:start_page")
+    
     form = CorrectPredictionForm(request.POST)
     if form.is_valid():
         instance = form.save(commit=False)
-        instance.image = meal.image
+        # Copy the actual image file, not the Image model instance
+        if meal.image and meal.image.image:
+            instance.image = meal.image.image  # meal.image.image is the actual file
         instance.model_prediction = meal_name
         instance.save()
+
+        if not meal:
+            context = {}
+            add_nutrition_info_api(context, meal_name)
+            meal = Meal.objects.create(
+                user=request.user,
+                image=meal.image,  # No image available when called directly
+                name=instance.correct_prediction, 
+                total_calories=context["calories"],
+                total_proteins=context["proteins"],
+                total_carbs=context["carbs"],
+                total_fats=context["fats"]
+            )
+            meal.save()
+        # Save data to CSV file for model training
+        try:  
+            import pandas as pd
+            csv_file = "corrected_predictions.csv"
+            image_filepath = None
+            
+            # Safely get image path - meal.image is a foreign key to Image model
+            # So we access meal.image.image.path (Image model has an 'image' field)
+            if meal.image and hasattr(meal.image, 'image') and meal.image.image:
+                image_filepath = meal.image.image.path
+                print(f"Image path found: {image_filepath}")
+            else:
+                image_filepath = "no_image_available"
+                print(f"No image available for meal: {meal_name}")
+            # Create or load CSV
+            if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
+                try:
+                    corrected_predictions_df = pd.read_csv(csv_file)
+                except (pd.errors.EmptyDataError, pd.errors.ParserError):
+                    # Handle empty or malformed CSV
+                    corrected_predictions_df = pd.DataFrame(columns=[
+                        'correct_label', 'predicted_label', 'image_filepath'
+                    ])
+            else:
+                # Create new DataFrame if file doesn't exist or is empty
+                corrected_predictions_df = pd.DataFrame(columns=[
+                    'correct_label', 'predicted_label', 'image_filepath'
+                ])
+            new_row = {
+                "correct_label": instance.correct_prediction,
+                "predicted_label": meal_name,
+                "image_filepath": image_filepath,  
+            }
+            # Add new row to DataFrame
+            corrected_predictions_df = pd.concat([
+                corrected_predictions_df, 
+                pd.DataFrame([new_row])
+            ], ignore_index=True)
+            
+            # Save to CSV
+            corrected_predictions_df.to_csv(csv_file, index=False)
+            print(f"Successfully saved correction to CSV: {new_row}")
+
+        except Exception as e:
+            print(f"Error saving to CSV: {e}")
+            messages.error(request, "Failed to save correction data")
+
+        # Delete the wrong prediction meal
         wrong_prediction = Meal.objects.filter(user=request.user, name=meal_name).last()
-        wrong_prediction.delete()
-        messages.success(request, "Thank you for your feedback! This helps us improve .")
+        if wrong_prediction:
+            wrong_prediction.delete()
+            
+        messages.success(request, "Thank you for your feedback! This helps us improve.")
         return redirect("backend:meal_summary", option=instance.correct_prediction)
     else:
         messages.error(request, "Please correct the form errors.")
-        return redirect("backend:meal_summary", option=instance.correct_prediction)
+        return redirect("backend:meal_summary", option=meal_name)

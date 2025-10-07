@@ -4,6 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
 class Image(models.Model):
+    """Store images that users upload"""
     image = models.ImageField(upload_to="images/")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now=True)
