@@ -24,8 +24,8 @@
         </nav>
         <main>
             <main>
-                <div class="outer-container">
-                    <div class="content-container">
+                <div style="width: 90%; margin: 0 auto;">
+                    <div class="main-container">
                         {% for message in messages %}
                             <p>{{message}}</p>
                         {% endfor %}
@@ -45,9 +45,7 @@
                                 <div class="progress-bar">
                                     <div class="outer">
                                         <div class="inner">
-                                            <div id="protein-amount" data-value="{{proteins}}">
-                                                {{total_proteins}}/{{request.user.profile.proteins}}g proteins
-                                            </div>
+                                            <div id="protein-amount" data-value="{{proteins}}">{{total_proteins}}g proteins</div>
                                         </div>
                                     </div>
                                 </div>
@@ -65,9 +63,7 @@
                                 <div class="progress-bar">
                                     <div class="outer">
                                         <div class="inner">
-                                            <div id="carb-amount" data-value="{{carbs}}">
-                                                {{total_carbs}}/{{request.user.profile.carbs}}g carbs
-                                            </div>
+                                            <div id="carb-amount" data-value="{{carbs}}">{{total_carbs}}g carbs</div>
                                         </div>
                                     </div>
                                 </div>
@@ -84,9 +80,7 @@
                                 <div class="progress-bar">
                                     <div class="outer">
                                         <div class="inner">
-                                            <div id="fat-amount" data-value="{{total_fats}}">
-                                                {{total_fats}}/{{request.user.profile.fats}}g fats
-                                            </div>
+                                            <div id="fat-amount" data-value="{{total_fats}}">{{total_fats}}g fats</div>
                                         </div>
                                     </div>
                                 </div>
