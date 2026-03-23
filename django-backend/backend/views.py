@@ -17,6 +17,7 @@ import os
 from django.utils import timezone
 from .services.usda_api import search_food, extract_nutritions
 from django.http import JsonResponse
+from .services.openai_api_call import get_image_class
 
 
 def check_is_food(prediction_info):
@@ -89,7 +90,7 @@ def add_nutrition_info(context, meal):
     return context
 
 
-def add_nutrition_info_api(context,option):
+def add_nutrition_info_api(context, option):
     food = search_food(option)
     nutritions = extract_nutritions(food)
     context["calories"] = nutritions.get("calories", 0)
@@ -152,7 +153,7 @@ def upload_photo(request, option=None):
             #instance.fats = calculate_fats()
             instance.save()
             try:
-                prediction_info = make_prediction_path(instance.image.path)
+                prediction_info = get_image_class(instance.image.path)
             except RuntimeError as exc:
                 messages.error(request, f"Prediction is unavailable: {exc}")
                 return render(request, "backend/home_page.html", {"form": form})
