@@ -7,7 +7,7 @@ ALLOWED_HOSTS=*
 
 # Railway will automatically provide:
 # PORT (automatically set)
-# DATABASE_URL (if you add a PostgreSQL service)
+# DATABASE_URL (if you add a PostgreSQL servicse)
 
 NUTRITIONIX_API_ID=2f6f4895
 NUTRITIONIX_API_KEY=cd40eb0aa38abe6e36931da97d409901

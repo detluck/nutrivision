@@ -137,11 +137,7 @@ def is_confident(prediction, threshold):
 def make_prediction_path(image_path:str):
     if model is None:
         # Return a fallback prediction when model is not available
-        return {
-            "prediction": "Mixed Vegetables",
-            "confidence": 0.6,
-            "options": ["Mixed Vegetables", "Salad", "Healthy Food"]
-        }
+        raise KeyError("Model not found")
     
     image = PilImage.open(image_path).convert("RGB")
     image = np.array(image.resize(size=(224, 224)))

@@ -2,15 +2,17 @@ import requests
 from django.conf import settings
 
 BASE_URL = "https://api.nal.usda.gov/fdc/v1"
-API_KEY = settings.USDA_API_KEY
+USDA_API_KEY = "B2mbaLaSSz8MwVaSaGEVQdNiCMKRavVv8BpbZQYO"
 
 def search_food(query: str) -> dict:
     url = f"{BASE_URL}/foods/search"
     params = {
         "query": query,
-        "api_key": settings.USDA_API_KEY
+        "api_key": USDA_API_KEY
     }
     response = requests.get(url, params=params)
+    print(f"STATUS: {response.status_code}")
+    print(f"DATA: {response.json()}")
     return response.json()
 
 def extract_nutritions(food):

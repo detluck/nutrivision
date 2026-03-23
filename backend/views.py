@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from .prediction_funcs import make_prediction_path
 from PIL import Image as PilImage
-from .nutrition_api import make_nutrition_api_call
 from .models import Image, Meal, FoodItem, Profile, WeightEntry
 import matplotlib
 matplotlib.use('Agg')
@@ -92,10 +91,11 @@ def add_nutrition_info(context, meal):
 
 def add_nutrition_info_api(context,option):
     food = search_food(option)
-    context["calories"] = extract_nutritions(food)["Energy"]
-    context["proteins"] = extract_nutritions(food)["proteins"]
-    context["carbs"] = extract_nutritions(food)["Carbohydrates, by diference"]
-    context["fats"] = extract_nutritions(food)["Total lipids (fats)"]
+    nutritions = extract_nutritions(food)
+    context["calories"] = nutritions.get("calories", 0)
+    context["proteins"] = nutritions.get("proteins", 0)
+    context["carbs"] = nutritions.get("carbs", 0)
+    context["fats"] = nutritions.get("fats", 0)
     return context
 
 def search_food_view(request):
@@ -168,6 +168,8 @@ def upload_photo(request, option=None):
             meal = Meal.objects.create(
                 user=request.user,
                 image=instance,
+
+
                 name=context["prediction"], 
                 total_calories=context["calories"],
                 total_proteins=context["proteins"],

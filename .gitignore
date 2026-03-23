@@ -41,6 +41,8 @@ local_settings.py
 *.joblib
 local_settings.py
 
+.venv*
+.venv/
 env/
 venv/
 ENV/
