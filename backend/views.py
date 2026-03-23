@@ -16,6 +16,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os 
 from django.utils import timezone
+from .services.usda_api import search_food, extract_nutritions
+from django.http import JsonResponse
 
 
 def check_is_food(prediction_info):
@@ -88,12 +90,22 @@ def add_nutrition_info(context, meal):
     return context
 
 
-def add_nutrition_info_api(context, option):
-    context["calories"] = make_nutrition_api_call(option)["calories"]
-    context["proteins"] = make_nutrition_api_call(option)["proteins"]
-    context["carbs"] = make_nutrition_api_call(option)["carbs"]
-    context["fats"] = make_nutrition_api_call(option)["fats"]
+def add_nutrition_info_api(context,option):
+    food = search_food(option)
+    context["calories"] = extract_nutritions(food)["Energy"]
+    context["proteins"] = extract_nutritions(food)["proteins"]
+    context["carbs"] = extract_nutritions(food)["Carbohydrates, by diference"]
+    context["fats"] = extract_nutritions(food)["Total lipids (fats)"]
     return context
+
+def search_food_view(request):
+    query = request.GET.get('q')
+    if not query:
+        return JsonResponse({"error": "No query provided", "status" :400})
+    
+    data = search_food(query)
+    return JsonResponse(data)
+
 
 def landing_page(request):
     context = {}
@@ -349,6 +361,7 @@ def correct_prediction(request, meal_name):
             add_nutrition_info_api(context, meal_name)
             meal = Meal.objects.create(
                 user=request.user,
+
                 image=meal.image,  # No image available when called directly
                 name=instance.correct_prediction, 
                 total_calories=context["calories"],

@@ -157,3 +157,4 @@ else:
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False
 
+USDA_API_KEY = config("USDA_API_KEY", default="")

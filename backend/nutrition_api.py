@@ -1,7 +1,7 @@
 import requests
+from django.conf import settings
 
 APP_ID = "2f6f4895"
-API_KEY = "cd40eb0aa38abe6e36931da97d409901"
 
 def make_nutrition_api_call(query:str) -> dict:
     """Make a call to nutritionix api using a query (food name)
@@ -9,7 +9,7 @@ def make_nutrition_api_call(query:str) -> dict:
     url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
     headers = {
         "x-app-id": APP_ID,
-        "x-app-key": API_KEY,
+        "x-app-key": settings.USDA_API_KEY,
         "Content-Type": "application/json"
     }
     data = {
