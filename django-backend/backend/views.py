@@ -123,7 +123,10 @@ def start_page(request):
     total_fats = np.round(sum([meal.total_fats for meal in today_meals]), 2)
 
     # Get the daily nutrient targest for the user
-    profile = Profile.objects.get(user=request.user)
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except:
+        return redirect("backend:create_profile")
 
     context = {"saved_meals": saved_meals, "choose_meal": False,
                "total_calories": total_calories, "total_proteins": total_proteins,
@@ -277,6 +280,7 @@ def create_profile(request):
 def profile(request):
     profile = None
     try:
+
         profile = Profile.objects.get(user=request.user)
     except Profile.DoesNotExist:
         return redirect("backend:create_profile")
