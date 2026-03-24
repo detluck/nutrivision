@@ -1,93 +1,83 @@
-import TabIcon from "@/components/tabIcon";
+import TabIcon from "@/components/TabIcon";
 import { Tabs } from "expo-router";
 import React from "react";
-import { Pressable, type PressableStateCallbackType, type StyleProp, type ViewStyle } from "react-native";
-
-const getTabButtonStyle = (
-  styleProp: StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>),
-  pressed: boolean
-): StyleProp<ViewStyle> => {
-  const baseStyle =
-    typeof styleProp === "function" ? styleProp({ pressed } as PressableStateCallbackType) : styleProp;
-
-  return [
-    baseStyle,
-    {
-      transform: [{ scale: pressed ? 0.93 : 1 }],
-      opacity: pressed ? 0.9 : 1,
-    },
-  ];
-};
+import { useTranslation } from "react-i18next";
+import { useThemeColors } from "@/hooks/useThemeColors";
 
 const Layout = () => {
+  const { t } = useTranslation();
+  const colors = useThemeColors();
   return (
     <Tabs
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: '#fff',
-          borderTopWidth: 1,
-          borderTopColor: '#e0e0e0',
-          height: 80,
-          paddingBottom: 8
+          backgroundColor: colors.panel,
+          borderTopColor: colors.border,
+          borderRadius: 50,
+          marginHorizontal: 20,
+          marginBottom: 20,
+          paddingHorizontal: 15,
+          paddingTop: 0,
+          position: "absolute",
+          overflow: "hidden",
         },
-        tabBarActiveTintColor: 'black',
-        tabBarInactiveTintColor: 'gray',
-        tabBarButton: (props) => (
-          <Pressable
-            {...(props as any)}
-            android_ripple={{ color: 'rgba(0, 0, 0, 0.12)', borderless: false }}
-            style={({ pressed }) => getTabButtonStyle(props.style, pressed)}
-          />
-        ),
+        tabBarItemStyle: {
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+        tabBarLabelStyle: {
+          fontSize: 14,
+          fontWeight: "600",
+          marginTop: 3,
+        },
+        tabBarActiveTintColor: colors.tabIconSelected,
+        tabBarInactiveTintColor: colors.tabIconDefault,
       }}
     >
-      <Tabs.Screen 
-        name="index" 
-        options={{ 
-          title: "Home",
+      <Tabs.Screen
+        name="index"
+        options={{
           headerShown: false,
+          tabBarLabel: t("tabNavigation.home"),
           tabBarIcon: ({ focused }) => (
             <TabIcon title="Home" icon="home" focused={focused} />
           ),
-          tabBarLabel: () => null,
-        }} 
+        }}
       />
-      <Tabs.Screen 
-        name="scan" 
-        options={{ 
-          title: "Scan",
+      <Tabs.Screen
+        name="history"
+        options={{
+          tabBarLabel: t("tabNavigation.history"),
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon title="Scan" icon="photo-camera" focused={focused} />
+            <TabIcon title="Scan" icon="history" focused={focused} />
           ),
-          tabBarLabel: () => null,
-        }} 
+        }}
       />
-      <Tabs.Screen 
-        name="profile" 
-        options={{ 
-          title: "Profile",
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarLabel: t("tabNavigation.profile"),
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon title="Profile" icon="person" focused={focused} />
           ),
-          tabBarLabel: () => null,
-        }} 
+        }}
       />
-      <Tabs.Screen 
-        name="about" 
-        options={{ 
-          title: "About",
+      <Tabs.Screen
+        name="about"
+        options={{
+          tabBarLabel: t("tabNavigation.about"),
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon title="About" icon="info" focused={focused} />
           ),
-          tabBarLabel: () => null,
-        }} 
+        }}
       />
     </Tabs>
   );
-}
+};
 
 export default Layout;
-
