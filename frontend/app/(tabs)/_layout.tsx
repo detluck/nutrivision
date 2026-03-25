@@ -12,7 +12,8 @@ const Layout = () => {
       screenOptions={{
         tabBarStyle: {
           backgroundColor: colors.panel,
-          borderTopColor: colors.border,
+          borderWidth: 1,
+          borderColor: colors.border,
           borderRadius: 50,
           marginHorizontal: 20,
           marginBottom: 20,

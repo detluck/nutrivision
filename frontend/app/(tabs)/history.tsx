@@ -1,11 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useThemeColors } from "@/hooks/useThemeColors";
 
-export default function About() {
+export default function History() {
+  const colors = useThemeColors();
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>About</Text>
-      <Text style={styles.text}>This is the About screen</Text>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <Text style={[styles.title, { color: colors.text }]}>History</Text>
+      <Text style={[styles.text, { color: colors.textSecondary }]}>
+        This is the History screen
+      </Text>
     </View>
   );
 }
@@ -15,7 +19,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
   },
   title: {
     fontSize: 24,
@@ -24,6 +27,5 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    color: "#666",
   },
 });
