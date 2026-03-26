@@ -1,10 +1,10 @@
-import { Pressable, View } from "react-native";
+import { Pressable, View, StyleSheet } from "react-native";
 import { CustomComboBox } from "./CustomComboBox";
-import i18n from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ThemePicker } from "./ThemePicker";
 
 const languageOptions = [
   {
@@ -27,19 +27,22 @@ export function LoginHeader() {
   const [isDark, setDark] = useState(true);
   const colors = useThemeColors();
   return (
-    <View>
+    <View style={styles.container}>
       <CustomComboBox
         options={languageOptions}
         selectedValue={currentLang}
         onSelect={(value) => i18n.changeLanguage(value)}
       />
-      <Pressable onPress={() => setDark(!isDark)}>
-        <MaterialIcons
-          name={isDark ? "dark-mode" : "light-mode"}
-          size={25}
-          color={colors.tabIconDefault}
-        />
-      </Pressable>
+      <ThemePicker />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+  },
+});

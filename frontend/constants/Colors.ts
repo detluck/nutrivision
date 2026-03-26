@@ -1,3 +1,5 @@
+// This file defines the color palette for the application, including both light and dark themes.
+// The palette was taken from the Catppuccin palette, see https://catppuccin.com/palette/
 export interface ThemeColors {
   background: string;
   panel: string;
