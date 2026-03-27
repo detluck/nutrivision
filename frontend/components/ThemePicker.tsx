@@ -1,4 +1,4 @@
-import { View, Pressable } from "react-native";
+import { View, Pressable, StyleSheet } from "react-native";
 import { useTheme } from "@/hooks/useTheme";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -8,7 +8,7 @@ export function ThemePicker() {
   const colors = useThemeColors();
 
   return (
-    <View>
+    <View style={styles.container}>
       <Pressable onPress={() => toggleTheme()}>
         <MaterialIcons
           name={isDark ? "dark-mode" : "light-mode"}
@@ -19,3 +19,13 @@ export function ThemePicker() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 30,
+    height: 40,
+    marginRight: 5,
+  },
+});

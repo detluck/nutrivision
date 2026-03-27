@@ -109,7 +109,7 @@ export function CustomComboBox({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 16,
+    display: "flex",
     zIndex: 50,
   },
   header: {
