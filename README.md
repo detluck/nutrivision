@@ -1,4 +1,4 @@
-# 🍽️ FoodAdvisor
+# 🍽️ Nutrivision
 
 An AI-powered nutrition tracking application that uses deep learning to identify food from images and automatically track nutritional intake. Simply upload a photo of your meal, and FoodAdvisor will recognize the food, calculate the nutritional values, and help you maintain your health goals.
 
