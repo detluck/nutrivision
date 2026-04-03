@@ -11,15 +11,25 @@ export function LoginArea() {
   return (
     <View style={[styles.container, { backgroundColor: colors.panel }]}>
       <Text style={[styles.title, { color: colors.text }]}>
-        {t("login.signIn")}
+        {t("register.createAccount")}
+      </Text>
+      <Text>
+        {t("register.usernamePlaceholder")}
       </Text>
       <UsernameInput />
+      <Text>
+        {t("register.passwordPlaceholder")}
+      </Text>
+      <PasswordInput />
+      <Text>
+        {t("register.confirmPasswordPlaceholder")}
+      </Text>
       <PasswordInput />
       <View style={styles.infoContainer}>
         <Text style={[styles.noAccount, { color: colors.textSecondary }]}>
-          {t("login.noAccount")}
+          By pressing "Register" you accept, that you data is not save and can be used everytime
         </Text>
-        <Pressable onPress={() => router.replace("/register")}>
+        <Pressable onPress={() => router.replace("/onboarding")}>
           <Text style={[styles.noAccount, { color: colors.success }]}>
             {t("login.register")}
           </Text>
