@@ -1,10 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ImageBackground,
+} from "react-native";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LoginHeader } from "@/components/LoginHeader";
 import { useTranslation } from "react-i18next";
 import { LoginArea } from "@/components/LoginArea";
+import Info from "@/components/Info";
 
 export default function Login() {
   const colors = useThemeColors();
@@ -16,6 +23,16 @@ export default function Login() {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <LoginHeader />
         <View style={styles.contentContainer}>
+          <ImageBackground
+            source={require("../../assets/images/logo.png")}
+            style={{
+              width: 200,
+              height: 200,
+              marginBottom: 70,
+              opacity: 0.8,
+              marginTop: -50,
+            }}
+          />
           <Text style={[styles.title, { color: colors.text }]}>
             {t("login.welcome")}
           </Text>
@@ -25,6 +42,7 @@ export default function Login() {
           <LoginArea />
         </View>
       </KeyboardAvoidingView>
+      <Info />
     </SafeAreaView>
   );
 }
@@ -44,11 +62,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 24,
-    fontWeight: "600",
+    fontSize: 30,
+    fontWeight: "700",
     marginBottom: 10,
+    marginTop: -40,
   },
   text: {
-    fontSize: 16,
+    fontSize: 20,
+    marginBottom: 50,
+  },
+  infoContainer: {
+    flex: 1,
+    width: "100%",
+    height: 40,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+  },
+  noAccount: {
+    fontSize: 15,
+    fontWeight: "300",
   },
 });

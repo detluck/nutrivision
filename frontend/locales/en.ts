@@ -24,6 +24,10 @@ export default {
     register: "Register",
     wrongCredentials: "Invalid username or password",
   },
+  info: {
+    project: "This project is hosted on GitHub",
+    please: "Support us by giving a star",
+  },
   register: {
     createAccount: "Create a new account",
     usernamePlaceholder: "Choose a username",

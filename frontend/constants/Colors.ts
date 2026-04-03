@@ -15,6 +15,7 @@ export interface ThemeColors {
   buttonInactive: string;
   tabIconDefault: string;
   tabIconSelected: string;
+  link: string;
 }
 
 const palette = {
@@ -92,6 +93,7 @@ export const Colors: { light: ThemeColors; dark: ThemeColors } = {
     buttonInactive: palette.latte.surface2,
     tabIconDefault: palette.latte.overlay0,
     tabIconSelected: palette.latte.green,
+    link: palette.latte.mauve,
   },
   dark: {
     background: palette.mocha.base,
@@ -108,5 +110,6 @@ export const Colors: { light: ThemeColors; dark: ThemeColors } = {
     buttonInactive: palette.mocha.surface2,
     tabIconDefault: palette.mocha.overlay0,
     tabIconSelected: palette.mocha.green,
+    link: palette.mocha.mauve,
   },
 };

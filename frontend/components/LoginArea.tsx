@@ -1,61 +1,28 @@
-import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
-import { useState } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useThemeColors } from "@/hooks/useThemeColors";
-import { MaterialIcons } from "@expo/vector-icons";
+import { UsernameInput, PasswordInput } from "@/components/LoginDataInput";
+import { router } from "expo-router";
 
 export function LoginArea() {
   const { t } = useTranslation();
   const colors = useThemeColors();
-  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <View style={[styles.container, { backgroundColor: colors.panel }]}>
       <Text style={[styles.title, { color: colors.text }]}>
         {t("login.signIn")}
       </Text>
-      <View
-        style={[
-          styles.inputContainer,
-          { backgroundColor: colors.surface, borderColor: colors.border },
-        ]}
-      >
-        <View style={styles.icon}>
-          <MaterialIcons name="person" size={24} color={colors.text} />
-        </View>
-        <TextInput
-          style={styles.input}
-          placeholder={t("login.usernamePlaceholder")}
-          placeholderTextColor={colors.textSecondary}
-          autoCapitalize="none"
-        />
-      </View>
-      <View
-        style={[
-          styles.inputContainer,
-          { backgroundColor: colors.surface, borderColor: colors.border },
-        ]}
-      >
-        <View style={styles.icon}>
-          <MaterialIcons name="lock" size={24} color={colors.text} />
-        </View>
-        <TextInput
-          style={styles.input}
-          placeholder={t("login.passwordPlaceholder")}
-          placeholderTextColor={colors.textSecondary}
-          secureTextEntry={!showPassword}
-          autoCapitalize="none"
-        />
-        <Pressable
-          onPress={() => setShowPassword(!showPassword)}
-          style={styles.eyeIcon}
-        >
-          <MaterialIcons
-            name={showPassword ? "visibility" : "visibility-off"}
-            size={24}
-            color={colors.text}
-            onPress={() => setShowPassword(!showPassword)}
-          />
+      <UsernameInput />
+      <PasswordInput />
+      <View style={styles.infoContainer}>
+        <Text style={[styles.noAccount, { color: colors.textSecondary }]}>
+          {t("login.noAccount")}
+        </Text>
+        <Pressable onPress={() => router.replace("/register")}>
+          <Text style={[styles.noAccount, { color: colors.success }]}>
+            {t("login.register")}
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -78,23 +45,19 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "100%",
-    flexDirection: "row",
     alignItems: "center",
     marginTop: 20,
     borderWidth: 1,
-    borderRadius: 50,
+    borderRadius: 20,
   },
-  input: {
-    flex: 1,
-    height: 40,
-    fontSize: 16,
+  infoContainer: {
+    width: "100%",
+    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  icon: {
-    padding: 5,
-    marginLeft: 5,
-  },
-  eyeIcon: {
-    padding: 5,
-    marginRight: 5,
+  noAccount: {
+    fontSize: 15,
+    fontWeight: "300",
   },
 });
