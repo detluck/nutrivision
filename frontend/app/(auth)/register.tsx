@@ -1,0 +1,75 @@
+import {
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  SafeAreaView,
+} from "react-native";
+import { RegisterArea } from "@/components/RegisterArea";
+import { useThemeColors } from "@/hooks/useThemeColors";
+import { LoginHeader } from "@/components/LoginHeader";
+import { useTranslation } from "react-i18next";
+import Info from "@/components/Info";
+
+export default function register() {
+  const colors = useThemeColors();
+  const { t } = useTranslation();
+  return (
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <LoginHeader />
+        <View style={styles.contentContainer}>
+          <Text style={[styles.title, { color: colors.text }]}>
+            {t("login.welcome")}
+          </Text>
+          <Text style={[styles.text, { color: colors.textSecondary }]}>
+            {t("login.subtitle")}
+          </Text>
+          <RegisterArea />
+        </View>
+      </KeyboardAvoidingView>
+      <Info />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+  },
+  contentContainer: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "700",
+    marginBottom: 10,
+    marginTop: -40,
+  },
+  text: {
+    fontSize: 20,
+    marginBottom: 50,
+  },
+  infoContainer: {
+    flex: 1,
+    width: "100%",
+    height: 40,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+  },
+  noAccount: {
+    fontSize: 15,
+    fontWeight: "300",
+  },
+});

@@ -4,7 +4,7 @@ import { useThemeColors } from "@/hooks/useThemeColors";
 import { UsernameInput, PasswordInput } from "@/components/LoginDataInput";
 import { router } from "expo-router";
 
-export function LoginArea() {
+export function RegisterArea() {
   const { t } = useTranslation();
   const colors = useThemeColors();
 
@@ -13,21 +13,16 @@ export function LoginArea() {
       <Text style={[styles.title, { color: colors.text }]}>
         {t("register.createAccount")}
       </Text>
-      <Text>
-        {t("register.usernamePlaceholder")}
-      </Text>
+      <Text>{t("register.usernamePlaceholder")}</Text>
       <UsernameInput />
-      <Text>
-        {t("register.passwordPlaceholder")}
-      </Text>
+      <Text>{t("register.passwordPlaceholder")}</Text>
       <PasswordInput />
-      <Text>
-        {t("register.confirmPasswordPlaceholder")}
-      </Text>
+      <Text>{t("register.confirmPasswordPlaceholder")}</Text>
       <PasswordInput />
       <View style={styles.infoContainer}>
         <Text style={[styles.noAccount, { color: colors.textSecondary }]}>
-          By pressing "Register" you accept, that you data is not save and can be used everytime
+          By pressing "Register" you accept, that you data is not save and can
+          be used everytime
         </Text>
         <Pressable onPress={() => router.replace("/onboarding")}>
           <Text style={[styles.noAccount, { color: colors.success }]}>
