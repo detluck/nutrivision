@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useThemeColors } from "@/hooks/useThemeColors";
-import { UsernameInput, PasswordInput } from "@/components/LoginDataInput";
 import { router } from "expo-router";
+import { CustomInput } from "@/components/CustomInput";
 
 export function RegisterArea() {
   const { t } = useTranslation();
@@ -13,12 +13,30 @@ export function RegisterArea() {
       <Text style={[styles.title, { color: colors.text }]}>
         {t("register.createAccount")}
       </Text>
-      <Text>{t("register.usernamePlaceholder")}</Text>
-      <UsernameInput />
-      <Text>{t("register.passwordPlaceholder")}</Text>
-      <PasswordInput />
-      <Text>{t("register.confirmPasswordPlaceholder")}</Text>
-      <PasswordInput />
+      <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+        {t("register.usernamePlaceholder")}
+      </Text>
+      <CustomInput
+        iconName="person"
+        placeholder="login.usernamePlaceholder"
+        autoFocus
+      />
+      <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+        {t("register.passwordPlaceholder")}
+      </Text>
+      <CustomInput
+        iconName="lock"
+        placeholder="login.passwordPlaceholder"
+        secureTextEntry
+      />
+      <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+        {t("register.confirmPasswordPlaceholder")}
+      </Text>
+      <CustomInput
+        iconName="lock"
+        placeholder="login.passwordPlaceholder"
+        secureTextEntry
+      />
       <View style={styles.infoContainer}>
         <Text style={[styles.noAccount, { color: colors.textSecondary }]}>
           By pressing "Register" you accept, that you data is not save and can
@@ -47,6 +65,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
+  },
+  subtitle: {
+    fontSize: 16,
+    marginTop: 10,
   },
   inputContainer: {
     width: "100%",

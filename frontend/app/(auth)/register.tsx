@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     height: "100%",
     display: "flex",
     alignItems: "center",
+    paddingTop: 20,
   },
   contentContainer: {
     flex: 1,

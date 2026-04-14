@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useThemeColors } from "@/hooks/useThemeColors";
-import { UsernameInput, PasswordInput } from "@/components/LoginDataInput";
 import { router } from "expo-router";
+import { CustomInput } from "@/components/CustomInput";
 
 export function LoginArea() {
   const { t } = useTranslation();
@@ -13,8 +13,16 @@ export function LoginArea() {
       <Text style={[styles.title, { color: colors.text }]}>
         {t("login.signIn")}
       </Text>
-      <UsernameInput />
-      <PasswordInput />
+      <CustomInput
+        iconName="person"
+        placeholder="login.usernamePlaceholder"
+        autoFocus
+      />
+      <CustomInput
+        iconName="lock"
+        placeholder="login.passwordPlaceholder"
+        secureTextEntry
+      />
       <View style={styles.infoContainer}>
         <Text style={[styles.noAccount, { color: colors.textSecondary }]}>
           {t("login.noAccount")}

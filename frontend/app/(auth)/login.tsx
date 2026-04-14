@@ -23,16 +23,6 @@ export default function Login() {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <LoginHeader />
         <View style={styles.contentContainer}>
-          <ImageBackground
-            source={require("../../assets/images/logo.png")}
-            style={{
-              width: 200,
-              height: 200,
-              marginBottom: 70,
-              opacity: 0.8,
-              marginTop: -50,
-            }}
-          />
           <Text style={[styles.title, { color: colors.text }]}>
             {t("login.welcome")}
           </Text>
